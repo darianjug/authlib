@@ -4,7 +4,7 @@ from flask import request as flask_req
 from authlib.specs.rfc6749 import (
     OAuth2Request,
     AuthorizationServer as _AuthorizationServer,
-)
+    ClientAuthentication)
 from authlib.specs.rfc6750 import BearerToken
 from authlib.common.security import generate_token
 from authlib.common.encoding import to_unicode
@@ -71,6 +71,7 @@ class AuthorizationServer(_AuthorizationServer):
         """Initialize later with Flask app instance."""
         if query_client is not None:
             self.query_client = query_client
+            self.authenticate_client.query_client = query_client
         if save_token is not None:
             self.save_token = save_token
 
